@@ -76,6 +76,9 @@ In these cases you should follow the [instructions](https://docs.woocommerce.com
 
 == Changelog ==
 
+= 1.7.0 =
+Fix vulnerability for sql injection
+
 = 1.6.5.1 =
 Compatibility with Woocommerce 6.2.1
 
