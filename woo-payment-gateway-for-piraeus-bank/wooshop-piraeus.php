@@ -4,7 +4,7 @@
   Plugin Name: Piraeus Bank WooCommerce Payment Gateway
   Plugin URI: https://www.papaki.com
   Description: Piraeus Bank Payment Gateway allows you to accept payment through various channels such as Maestro, Mastercard, AMex cards, Diners  and Visa cards On your Woocommerce Powered Site.
-  Version: 1.7.0
+  Version: 1.7.1
   Author: Papaki
   Author URI: https://www.papaki.com
   License: GPL-3.0+
@@ -790,38 +790,41 @@ function woocommerce_piraeusbank_init() {
 
 
                 $ttquery = $wpdb->prepare(
-                    'select %s from %s where merch_ref = %s',
-                    [
-                        'trans_ticket',
-                        $wpdb->prefix . 'piraeusbank_transactions',
+                    'select trans_ticket from ' . $wpdb->prefix . 'piraeusbank_transactions' . ' where merch_ref = %s',
+                    [                        
                         $order_id
                     ]
                 );
                 $tt = $wpdb->get_results($ttquery);
+                if($this->pb_enable_log == 'yes') {
+                    error_log( '---- ttquery -----');
+                    error_log( print_r( array($ttquery,$tt), true ) );
+                    error_log( '---- End of ttquery ----');
+                }
 
                 $hasHashKeyNotMatched = true;
 
-                    foreach($tt as $transaction) {
+                foreach($tt as $transaction) {
 
-                        if(!$hasHashKeyNotMatched)
-                            break;
+                    if(!$hasHashKeyNotMatched)
+                        break;
 
-                        $transticket = $transaction->trans_ticket;
+                    $transticket = $transaction->trans_ticket;
 
-                        $stcon = $transticket . $this->pb_PosId . $this->pb_AcquirerId . $order_id . $ApprovalCode . $Parameters . $ResponseCode . $SupportReferenceID . $AuthStatus . $PackageNo . $StatusFlag;
+                    $stcon = $transticket . $this->pb_PosId . $this->pb_AcquirerId . $order_id . $ApprovalCode . $Parameters . $ResponseCode . $SupportReferenceID . $AuthStatus . $PackageNo . $StatusFlag;
 
-                        $conhash = strtoupper(hash('sha256', $stcon));
+                    $conhash = strtoupper(hash('sha256', $stcon));
 
-                        // $newHashKey
-                        $stconHmac = $transticket . ';' . $this->pb_PosId . ';' .  $this->pb_AcquirerId . ';' .  $order_id . ';' .  $ApprovalCode . ';' .  $Parameters . ';' .  $ResponseCode . ';' .  $SupportReferenceID . ';' .  $AuthStatus . ';' .  $PackageNo . ';' .  $StatusFlag;
-                        $consHashHmac = strtoupper(hash_hmac('sha256', $stconHmac, $transticket, false));
+                    // $newHashKey
+                    $stconHmac = $transticket . ';' . $this->pb_PosId . ';' .  $this->pb_AcquirerId . ';' .  $order_id . ';' .  $ApprovalCode . ';' .  $Parameters . ';' .  $ResponseCode . ';' .  $SupportReferenceID . ';' .  $AuthStatus . ';' .  $PackageNo . ';' .  $StatusFlag;
+                    $consHashHmac = strtoupper(hash_hmac('sha256', $stconHmac, $transticket, false));
 
-                            if($consHashHmac != $HashKey && $conhash != $HashKey) {
-                                continue;
-                            } else {
-                                $hasHashKeyNotMatched= false;
-                            }
-                    }
+                        if($consHashHmac != $HashKey && $conhash != $HashKey) {
+                            continue;
+                        } else {
+                            $hasHashKeyNotMatched= false;
+                        }
+                }
 
 
                 if($hasHashKeyNotMatched) {
