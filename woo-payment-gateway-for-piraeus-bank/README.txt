@@ -4,7 +4,7 @@ Author URI: https://www.papaki.com
 Tags: ecommerce, woocommerce, payment gateway
 Tested up to: 6.4.3
 Requires at least: 4.0
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 WC tested up to: 6.2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -75,6 +75,9 @@ In these cases you should follow the [instructions](https://docs.woocommerce.com
 
 
 == Changelog ==
+
+= 1.7.1 =
+Fix bug in 1.7.0
 
 = 1.7.0 =
 Fix vulnerability for sql injection
