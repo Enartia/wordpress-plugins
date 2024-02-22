@@ -318,7 +318,7 @@ function woocommerce_alphabank_init() {
             ];
 
             foreach ($requiredFields as $field => $info) {
-                if (trim($_POST[$field]) === '') {
+                if (!isset($_POST[$field]) || trim($_POST[$field]) === '') {
                     wc_add_notice(
                         __($info . ' is a mandatory field!'),
                         'error'
