@@ -38,9 +38,9 @@ function woocommerce_alphabank_init() {
             $this->id = 'alphabank_gateway';
             $this->has_fields = true;
             $this->notify_url = WC()->api_request_url('WC_alphabank_Gateway');
-            $this->method_description = __('Alpha bank Payment Gateway allows you to accept payment through various channels such as Visa, Mastercard, Maestro, American Express, Diners, Discover cards on your Woocommerce Powered Site.', 'woo-alpha-bank-payment-gateway');
+            $this->method_description = __('Payment Gateway – nexi Alpha Bank for WooCommerce allows you to accept payment through various channels such as Visa, Mastercard, Maestro, American Express, Diners, Discover cards on your Woocommerce Powered Site.', 'woo-alpha-bank-payment-gateway');
             $this->redirect_page_id = $this->get_option('redirect_page_id');
-            $this->method_title = 'Alpha Bank Gateway';
+            $this->method_title = 'Payment Gateway – nexi Alpha Bank for WooCommerce';
 
             // Load the form fields.
             $this->init_form_fields();
