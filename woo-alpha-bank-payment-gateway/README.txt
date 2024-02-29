@@ -1,11 +1,10 @@
-=== Payment Gateway - Alpha Bank for WooCommerce ===
-Contributors: enartia,georgekapsalakis,g.georgopoulos,akatopodis
+=== Payment Gateway – nexi Alpha Bank for WooCommerce ===
+Contributors: enartia,georgekapsalakis,g.georgopoulos,akatopodis,mathijs.futselaar@team.blue
 Author URI: https://www.papaki.com	
 Tags: ecommerce, woocommerce, payment gateway, alphabank, alpha
-Tested up to: 5.9.0
-Requires at least: 4.0
-Stable tag: 1.3.7
-WC tested up to: 6.2.0
+Tested with: 6.4.2
+Stable tag: 2.0.0
+WC tested: 8.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,12 +30,23 @@ In order to enable MasterPass you should go to Woocommerce Payment methods and e
 
 == Frequently asked questions ==
 = Does it work? =
-Yes
+Since version 2.0 we have removed a lot of old code, this also includes some code that made the application backward compatible
+with 10+ year old versions of WordPress. The cleaned up codebase has been thoroughly tested with WordPress 6.4.2 and
+WooCommerce 8.5.0. It's probably safe to assume that it works in most of the "recent" releases of both WooCommerce and WordPress,
+but not versions from 10+ years ago.
+
 = How can i enable the MasterPass? = 
 In order to enable MasterPass you should go to Woocommerce Payment methods and enable the «Alpha Bank Masterpass» payment method
 
 
 == Changelog ==
+= 2.0.0 =
+Title change to "Payment Gateway – nexi Alpha Bank for WooCommerce"
+Updated logo image
+Major code cleanup
+Removed backward compatibilities to make future development easier
+Added extra layer of validation after submitting payment form
+
 = 1.3.7 =
 update compatibility with Woocommerce 6.2
 = 1.3.6 =
