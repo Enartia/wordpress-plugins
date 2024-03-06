@@ -17,7 +17,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-require_once plugin_dir_path(__FILE__) . 'encryption.php';
 add_action('plugins_loaded', 'woocommerce_eurobank_init', 0);
 
 function woocommerce_eurobank_init()
