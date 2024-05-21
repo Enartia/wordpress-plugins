@@ -24,6 +24,13 @@ function woocommerce_alphabank_init()
     }
 
     load_plugin_textdomain('woo-alpha-bank-payment-gateway', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+    add_action('before_woocommerce_init', function(){
+        global $wpdb;
+
+        if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( $wpdb->prefix . 'alphabank_transactions', __FILE__, true );
+        }
+    });
 
     require_once 'classes/WC_AlphaBank_Gateway_Base.php';
     require_once 'classes/WC_AlphaBank_Gateway.php';

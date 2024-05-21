@@ -31,6 +31,14 @@ function woocommerce_piraeusbank_init()
 
     load_plugin_textdomain('woo-payment-gateway-for-piraeus-bank', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
+    add_action('before_woocommerce_init', function(){
+        global $wpdb;
+
+        if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( $wpdb->prefix . 'piraeusbank_transactions', __FILE__, true );
+        }
+    });
+
     require_once 'functions.php';
     require_once 'classes/WC_Piraeusbank_Gateway.php';
 
