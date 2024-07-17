@@ -54,9 +54,10 @@ function woocommerce_alphabank_init()
         }
 
         if ($file === $this_plugin) {
-            $settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/admin.php?page=wc-settings&tab=checkout&section=WC_alphabank_Gateway">Settings</a>';
+            $settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/admin.php?page=wc-settings&tab=checkout&section=WC_alphabank_Gateway">Settings</a> | <a href="' . get_bloginfo('wpurl') . '/wp-admin/admin.php?page=wc-settings&tab=checkout&section=WC_alphabank_Gateway_Masterpass">Masterpass Settings</a>';
             array_unshift($links, $settings_link);
         }
+
         return $links;
     }
 

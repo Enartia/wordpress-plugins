@@ -436,4 +436,63 @@ class WC_AlphaBank_Gateway_Base extends WC_Payment_Gateway
             $order->update_status($status, $message);
         }
     }
+
+    public static function encrypt($message, $key)
+    {
+        if (mb_strlen($key, '8bit') !== 32) {
+            throw new Exception("Needs a 256-bit key! ".mb_strlen($key, '8bit'));
+        }
+        $ivsize = openssl_cipher_iv_length('aes-128-cbc');
+        $iv = openssl_random_pseudo_bytes($ivsize);
+
+        $ciphertext = openssl_encrypt(
+            $message,
+            'aes-128-cbc',
+            $key,
+            0,
+            $iv
+        );
+
+        return $iv . $ciphertext;
+    }
+
+    public static function decrypt($message, $key)
+    {
+        if (mb_strlen($key, '8bit') !== 32) {
+            throw new Exception("Needs a 256-bit key! ".mb_strlen($key, '8bit'));
+        }
+        $ivsize = openssl_cipher_iv_length('aes-128-cbc');
+        $iv = mb_substr($message, 0, $ivsize, '8bit');
+        $ciphertext = mb_substr($message, $ivsize, null, '8bit');
+
+        return openssl_decrypt(
+            $ciphertext,
+            'aes-128-cbc',
+            $key,
+            0,
+            $iv
+        );
+    }
+
+    public function get_option($key, $empty_value = null)
+    {
+        $option_value = parent::get_option($key, $empty_value);
+        if ($key == 'ab_sharedSecretKey') {
+            $decrypted = $this->decrypt(base64_decode($option_value), substr(NONCE_KEY, 0, 32));
+            $option_value = $decrypted;
+        }
+        return $option_value;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return string
+     * @throws Exception
+     */
+    public function validate_ab_sharedSecretKey_field($key, $value)
+    {
+        $encrypted = self::encrypt($value, substr(NONCE_KEY, 0, 32));
+        return base64_encode($encrypted);
+    }
 }
