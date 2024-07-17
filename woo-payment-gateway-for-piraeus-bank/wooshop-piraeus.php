@@ -31,11 +31,11 @@ function woocommerce_piraeusbank_init()
 
     load_plugin_textdomain('woo-payment-gateway-for-piraeus-bank', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
-    add_action('before_woocommerce_init', function(){
+    add_action('before_woocommerce_init', function () {
         global $wpdb;
 
-        if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( $wpdb->prefix . 'piraeusbank_transactions', __FILE__, true );
+        if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility($wpdb->prefix . 'piraeusbank_transactions', __FILE__, true);
         }
     });
 
@@ -44,5 +44,17 @@ function woocommerce_piraeusbank_init()
 
     add_action('wp', 'piraeusbank_message');
     add_filter('woocommerce_payment_gateways', 'woocommerce_add_piraeusbank_gateway');
-    add_filter('plugin_action_links', 'piraeusbank_plugin_action_links', 10, 2);
+    add_filter('plugin_action_links', function ($links, $file) {
+        static $this_plugin;
+
+        if (!$this_plugin) {
+            $this_plugin = plugin_basename(__FILE__);
+        }
+
+        if ($file == $this_plugin) {
+            $settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/admin.php?page=wc-settings&tab=checkout&section=WC_Piraeusbank_Gateway">Settings</a>';
+            array_unshift($links, $settings_link);
+        }
+        return $links;
+    }, 10, 2);
 }

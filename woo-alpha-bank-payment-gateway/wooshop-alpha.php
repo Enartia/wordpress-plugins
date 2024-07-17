@@ -36,4 +36,29 @@ function woocommerce_alphabank_init()
     require_once 'classes/WC_AlphaBank_Gateway.php';
     require_once 'classes/WC_AlphaBank_Gateway_Masterpass.php';
     require_once 'functions.php';
+
+    add_action('wp', 'alphabank_message');
+    add_filter('woocommerce_payment_gateways', 'woocommerce_add_alphabank_gateway');
+
+    /**
+     * @param $links
+     * @param $file
+     * @return mixed
+     */
+    function alphabank_plugin_action_links($links, $file)
+    {
+        static $this_plugin;
+
+        if (!$this_plugin) {
+            $this_plugin = plugin_basename(__FILE__);
+        }
+
+        if ($file === $this_plugin) {
+            $settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/admin.php?page=wc-settings&tab=checkout&section=WC_alphabank_Gateway">Settings</a>';
+            array_unshift($links, $settings_link);
+        }
+        return $links;
+    }
+
+    add_filter('plugin_action_links', 'alphabank_plugin_action_links', 10, 2);
 }
