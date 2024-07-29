@@ -35,7 +35,7 @@ function woocommerce_alphabank_init()
     require_once 'classes/WC_AlphaBank_Gateway_Base.php';
     require_once 'classes/WC_AlphaBank_Gateway.php';
     require_once 'classes/WC_AlphaBank_Gateway_Masterpass.php';
-    require_once 'functions.php';
+    require_once 'include/functions.php';
 
     add_action('wp', 'alphabank_message');
     add_filter('woocommerce_payment_gateways', 'woocommerce_add_alphabank_gateway');

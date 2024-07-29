@@ -39,7 +39,7 @@ function woocommerce_piraeusbank_init()
         }
     });
 
-    require_once 'functions.php';
+    require_once 'include/functions.php';
     require_once 'classes/WC_Piraeusbank_Gateway.php';
 
     add_action('wp', 'piraeusbank_message');

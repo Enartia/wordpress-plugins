@@ -35,7 +35,7 @@ function woocommerce_eurobank_init()
 
 
     require_once 'classes/WC_Eurobank_Gateway.php';
-    require_once 'functions.php';
+    require_once 'include/functions.php';
 
     load_plugin_textdomain(WC_Eurobank_Gateway::PLUGIN_DOMAIN, false, dirname(plugin_basename(__FILE__)) . '/languages/');
 

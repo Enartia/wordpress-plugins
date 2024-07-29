@@ -73,7 +73,7 @@ class WC_Eurobank_Gateway extends WC_Payment_Gateway
         add_action('woocommerce_api_wc_eurobank_gateway', array($this, 'check_eurobank_response'));
 
         if ($this->eb_render_logo === "yes") {
-            $this->icon = apply_filters('eurobank_icon', plugins_url('img/eurobank.svg', __FILE__));
+            $this->icon = apply_filters('eurobank_icon', plugins_url('../img/eurobank.svg', __FILE__));
         }
     }
 
