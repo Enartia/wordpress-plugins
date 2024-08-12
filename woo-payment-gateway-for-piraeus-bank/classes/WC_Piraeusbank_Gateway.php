@@ -129,7 +129,7 @@ class WC_Piraeusbank_Gateway extends WC_Payment_Gateway
             'type' => 'text',
             'label' => __('Cardholder Name', self::PLUGIN_NAMESPACE),
             'placeholder' => __('Insert card holder name as required by Piraeus bank for validation', self::PLUGIN_NAMESPACE),
-            'required' => true,
+            'required' => false, // This might look counterproductive, but if we require it in the frontend, we cannot use a different payment provider. The backend is going to handle validation anyway.
             'class' => array('form-row-wide'),
             'clear' => true
         );
@@ -886,9 +886,12 @@ class WC_Piraeusbank_Gateway extends WC_Payment_Gateway
             'billing_country' => 'Billing country / region',
             'billing_state' => 'Billing state / county',
             'billing_address_1' => 'Billing street address',
-            'billing_postcode' => 'Billing postcode / ZIP',
-            'cardholder_name' => 'Cardholder Name'
+            'billing_postcode' => 'Billing postcode / ZIP'
         ];
+
+        if (is_checkout() && WC()->session->get('chosen_payment_method') === $this->id && $this->pb_cardholder_name === 'yes') {
+            $requiredFields['cardholder_name'] = 'Cardholder Name';
+        }
 
         foreach ($requiredFields as $field => $info) {
             if (!isset($_POST[$field]) || trim($_POST[$field]) === '') {
