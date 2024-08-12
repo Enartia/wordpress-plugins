@@ -3,7 +3,7 @@
   Plugin Name: Payment Gateway – nexi Alpha Bank Masterpass for WooCommerce
   Plugin URI: https://www.papaki.com
   Description: Payment Gateway – nexi Alpha Bank Masterpass allows you to accept payment through MasterPass
-  Version: 2.0.0
+  Version: 2.0.3
   Author: Papaki
   Author URI: https://www.papaki.com
   License: GPL-3.0+
