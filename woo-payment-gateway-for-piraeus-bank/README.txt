@@ -4,7 +4,7 @@ Author URI: https://www.papaki.com
 Tags: ecommerce, woocommerce, payment gateway
 Tested up to: 6.4.3
 Requires at least: 6.4.2
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 WC tested: 8.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -79,6 +79,10 @@ In these cases you should follow the [instructions](https://docs.woocommerce.com
 
 
 == Changelog ==
+
+= 2.0.6 =
+
+Removed optional text from cardholder name, which was added by woocommerce
 
 = 2.0.5 =
 
