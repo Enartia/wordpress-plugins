@@ -880,23 +880,10 @@ class WC_Piraeusbank_Gateway extends WC_Payment_Gateway
      */
     public function validate_fields()
     {
-        $requiredFields = [
-            'billing_email' => 'E-mail address',
-            'billing_city' => 'Billing town/city',
-            'billing_country' => 'Billing country / region',
-            'billing_state' => 'Billing state / county',
-            'billing_address_1' => 'Billing street address',
-            'billing_postcode' => 'Billing postcode / ZIP'
-        ];
-
         if (is_checkout() && WC()->session->get('chosen_payment_method') === $this->id && $this->pb_cardholder_name === 'yes') {
-            $requiredFields['cardholder_name'] = 'Cardholder Name';
-        }
-
-        foreach ($requiredFields as $field => $info) {
-            if (!isset($_POST[$field]) || trim($_POST[$field]) === '') {
+            if (!isset($_POST['cardholder_name']) || trim($_POST['cardholder_name']) === '') {
                 wc_add_notice(
-                    __($info . ' is a mandatory field!'),
+                    __('Cardholder name is mandatory', self::PLUGIN_NAMESPACE),
                     'error'
                 );
             }
