@@ -3,7 +3,7 @@
   Plugin Name: Payment Gateway – nexi Alpha Bank for WooCommerce
   Plugin URI: https://www.papaki.com
   Description: Payment Gateway – nexi Alpha Bank for WooCommerce allows you to accept payment through various channels such as American Express, Visa, Mastercard, Maestro, Diners Club cards On your Woocommerce Powered Site.
-  Version: 2.0.0
+  Version: 2.0.3
   Author: Papaki
   Author URI: https://www.papaki.com
   License: GPL-3.0+
@@ -435,5 +435,64 @@ class WC_AlphaBank_Gateway_Base extends WC_Payment_Gateway
         if ($status !== null) {
             $order->update_status($status, $message);
         }
+    }
+
+    public static function encrypt($message, $key)
+    {
+        if (mb_strlen($key, '8bit') !== 32) {
+            throw new Exception("Needs a 256-bit key! ".mb_strlen($key, '8bit'));
+        }
+        $ivsize = openssl_cipher_iv_length('aes-128-cbc');
+        $iv = openssl_random_pseudo_bytes($ivsize);
+
+        $ciphertext = openssl_encrypt(
+            $message,
+            'aes-128-cbc',
+            $key,
+            0,
+            $iv
+        );
+
+        return $iv . $ciphertext;
+    }
+
+    public static function decrypt($message, $key)
+    {
+        if (mb_strlen($key, '8bit') !== 32) {
+            throw new Exception("Needs a 256-bit key! ".mb_strlen($key, '8bit'));
+        }
+        $ivsize = openssl_cipher_iv_length('aes-128-cbc');
+        $iv = mb_substr($message, 0, $ivsize, '8bit');
+        $ciphertext = mb_substr($message, $ivsize, null, '8bit');
+
+        return openssl_decrypt(
+            $ciphertext,
+            'aes-128-cbc',
+            $key,
+            0,
+            $iv
+        );
+    }
+
+    public function get_option($key, $empty_value = null)
+    {
+        $option_value = parent::get_option($key, $empty_value);
+        if ($key == 'ab_sharedSecretKey') {
+            $decrypted = $this->decrypt(base64_decode($option_value), substr(NONCE_KEY, 0, 32));
+            $option_value = $decrypted;
+        }
+        return $option_value;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return string
+     * @throws Exception
+     */
+    public function validate_ab_sharedSecretKey_field($key, $value)
+    {
+        $encrypted = self::encrypt($value, substr(NONCE_KEY, 0, 32));
+        return base64_encode($encrypted);
     }
 }

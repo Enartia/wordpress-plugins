@@ -3,8 +3,9 @@ Contributors: enartia,georgekapsalakis,g.georgopoulos,akatopodis,mathijs.futsela
 Author URI: https://www.papaki.com	
 Tags: ecommerce, woocommerce, payment gateway, alphabank, alpha
 Tested with: 6.4.2
-Stable tag: 2.0.0
+Stable tag: 2.0.4
 WC tested: 8.5.0
+Requires at least: 6.4.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,6 +19,10 @@ Plugin is compliant with new EMV 3D Secure specifications.
 
 = Features =
 Provides pre-auth transactions and free instalments(either deeping on order total amount or not).
+
+== Important Notice ==
+
+The plugin currently does not support the blocks system but still uses legacy.
 
 == Installation ==
 
