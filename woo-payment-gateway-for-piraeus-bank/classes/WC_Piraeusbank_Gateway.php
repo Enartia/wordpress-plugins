@@ -524,6 +524,7 @@ class WC_Piraeusbank_Gateway extends WC_Payment_Gateway {
 			$name           = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
 			$CardholderName = pb_getCardholderName( $order->get_id(), $name, $this->pb_cardholder_name );
 			
+			
 			$ticketRequest = [
 				'Username'          => $this->pb_Username,
 				'Password'          => hash( 'md5', $this->pb_Password ),
@@ -891,6 +892,14 @@ class WC_Piraeusbank_Gateway extends WC_Payment_Gateway {
 		
 		foreach ( $requiredFields as $field => $info ) {
 			if ( ! isset( $_POST[ $field ] ) || trim( $_POST[ $field ] ) === '' ) {
+				
+				if (defined('REST_REQUEST')) {
+					//$parameters = $request->get_query_params();
+					//We're inside a rest API request.
+					//var_dump($_GET);
+					return false;
+				}
+				
 				wc_add_notice(
 					__( $info . ' is a mandatory field!' ),
 					'error'
