@@ -41,7 +41,7 @@ function woocommerce_add_piraeusbank_gateway($methods)
 
 function pb_getCardholderName($orderId, $name, $enabled)
 {
-    //check if has the field
+	//check if has the field
     if ($enabled == 'yes') {
         $cardholder_field = get_post_meta($orderId, 'cardholder_name', true);
         if (!empty($cardholder_field)) {
