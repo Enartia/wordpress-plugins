@@ -41,7 +41,7 @@ function woocommerce_add_piraeusbank_gateway($methods)
 
 function pb_getCardholderName($orderId, $name, $enabled)
 {
-    //check if has the field
+	//check if has the field
     if ($enabled == 'yes') {
         $cardholder_field = get_post_meta($orderId, 'cardholder_name', true);
         if (!empty($cardholder_field)) {
@@ -946,6 +946,20 @@ function pb_convertNonLatinToLatin($str)
 
     return $name;
 
+}
+function piraeusbank_plugin_action_links($links, $file)
+{
+    static $this_plugin;
+
+    if (!$this_plugin) {
+        $this_plugin = plugin_basename(__FILE__);
+    }
+
+    if ($file == $this_plugin) {
+        $settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/admin.php?page=wc-settings&tab=checkout&section=WC_Piraeusbank_Gateway">Settings</a>';
+        array_unshift($links, $settings_link);
+    }
+    return $links;
 }
 
 function piraeus_woocommerce_states($states)

@@ -1,2 +1,5 @@
 woocommerce
 .DS_Store
+
+/.idea/
+**/.idea/
