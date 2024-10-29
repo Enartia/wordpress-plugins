@@ -425,11 +425,11 @@ class WC_Piraeusbank_Gateway extends WC_Payment_Gateway {
 		
 		if ( $max_installments > 1 ) {
 			$doseis_field = '<p class="form-row ">
-                    <label for="' . esc_attr( $this->id ) . '-card-doseis">' . __( 'Choose Installments', 'woo-alpha-bank-payment-gateway' ) . ' <span class="required">*</span></label>
+                    <label for="' . esc_attr( $this->id ) . '-card-doseis">' . __( 'Choose Installments', 'woo-payment-gateway-for-piraeus-bank' ) . ' <span class="required">*</span></label>
                                 <select id="' . esc_attr( $this->id ) . '-card-doseis" name="' . esc_attr( $this->id ) . '-card-doseis" class="input-select wc-credit-card-form-card-doseis">
                                 ';
 			for ( $i = 1; $i <= $max_installments; $i ++ ) {
-				$doseis_field .= '<option value="' . $i . '">' . ( $i === 1 ? __( 'Without installments', 'woo-alpha-bank-payment-gateway' ) : $i ) . '</option>';
+				$doseis_field .= '<option value="' . $i . '">' . ( $i === 1 ? __( 'Without installments', 'woo-payment-gateway-for-piraeus-bank' ) : $i ) . '</option>';
 			}
 			$doseis_field .= '</select>
                         </p>'; // <img width="100%" height="100%" style="max-height:100px!important" src="'. plugins_url('img/alpha_cards.png', __FILE__) .'" >

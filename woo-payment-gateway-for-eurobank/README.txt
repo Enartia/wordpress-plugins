@@ -2,17 +2,21 @@
 Contributors: enartia,g.georgopoulos,georgekapsalakis,akatopodis
 Author URI: https://www.papaki.com
 Tags: ecommerce, woocommerce, payment gateway
+Tested up to: 6.4.3
 Requires at least: 6.4.2
-Stable tag: 2.0.0
+Stable tag: 2.0.2
 WC tested: 8.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 PHP: 7.4
 
+== Important Notice ==
+
+The plugin currently does not support the blocks system but still uses legacy.
+
 == Description ==
 This plugin adds Eurobank paycenter as a payment gateway for WooCommerce. A contract between you and the Bank must be previously signed.
 It uses the redirect method, and SSL is not required.
-
 
 == Features ==
 Provides pre-auth transactions and free instalments.
@@ -53,6 +57,7 @@ but not versions from 10+ years ago.
 Major code cleanup
 Removed backward compatibilities to make future development easier
 Added extra layer of validation after submitting payment form
+Compatibility updates regarding 3dsecure
 
 = 1.8.7.1 =
 Updated Texts and compatibility with Woocommerce 6.2.0

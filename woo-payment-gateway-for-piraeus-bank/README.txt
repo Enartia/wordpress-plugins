@@ -9,13 +9,17 @@ WC tested up to: 9.2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
+
+
 Adds Piraeus Bank paycenter as a payment Gateway for WooCommerce
 
-== Important Notice == 
-1. Piraeus Bank has announced that it will gradually abolish the Preauthorized Payment Service for all merchants, beginning from the ones obtained MIDs from 29/1/2019 onwards.
+== Important Notice ==
+1. The plugin currently does not support the blocks system but still uses legacy.
+
+2. Piraeus Bank has announced that it will gradually abolish the Preauthorized Payment Service for all merchants, beginning from the ones obtained MIDs from 29/1/2019 onwards.
 You are highly recommended to disable the preAuthorized Payment Service as soon as possible.
 
-2. We would like to inform you that our Plugin is compatible with the 3D Secure version 2 changes required from Piraeus bank.
+3. We would like to inform you that our Plugin is compatible with the 3D Secure version 2 changes required from Piraeus bank.
 
 == Description ==
 This plugin adds Piraeus Bank paycenter as a payment gateway for WooCommerce. A contract between you and the Bank must be previously signed. Based on original plugin "Piraeus Bank Greece Payment Gateway for WooCommerce" by emspace.gr [https://wordpress.org/plugins/woo-payment-gateway-piraeus-bank-greece/]
@@ -75,6 +79,28 @@ In these cases you should follow the [instructions](https://docs.woocommerce.com
 
 
 == Changelog ==
+
+= 2.0.7 =
+
+Removed mandatory fields, updated Greek translation(s)
+
+= 2.0.6 =
+
+Removed optional text from cardholder name, which was added by woocommerce
+
+= 2.0.5 =
+
+Fixed an old bug that didn't allow paying with a different payment provider if the pireaus bank provider was set up with asking for the cardholder name
+
+= 2.0.2 =
+
+Fixed cardholder name field check when it was disabled
+
+= 2.0.0 =
+
+Updated code to PHP 7.4
+Updated code to match new wordpress and woocommerce changes
+Compatibility updates regarding 3dsecure
 
 = 1.7.1 =
 Fix bug in 1.7.0
